@@ -1,0 +1,73 @@
+name: CI/CD Gamarra Conecta
+
+on:
+  push:
+    branches: [main, test]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 1. Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Instalar dependencias (desde package-lock)
+        run: npm ci
+      - name: Lint con reglas de seguridad (ESLint + eslint-plugin-security)
+        run: npm run lint
+
+  test:
+    name: 2. Pruebas automatizadas
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Ejecutar pruebas (Jest + Supertest) con cobertura
+        run: npm test
+      - name: Publicar reporte de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-cobertura
+          path: coverage/
+
+  seguridad:
+    name: 3. Análisis de seguridad
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Análisis de dependencias (npm audit)
+        run: npm audit --omit=dev --audit-level=high
+      - name: Escaneo de secretos (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    name: 4. Deploy a Render
+    needs: [test, seguridad]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar despliegue en Render
+        run: curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"

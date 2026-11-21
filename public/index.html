@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamarra Conecta</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Gamarra Conecta</h1>
+    <p>Vitrina digital y control de ventas para los comerciantes de Gamarra</p>
+    <span id="sesion"></span>
+  </header>
+
+  <main>
+    <section>
+      <h2>Catálogo</h2>
+      <form id="form-buscar" class="fila">
+        <select id="f-categoria">
+          <option value="">Todas las categorías</option>
+          <option>Jeans</option><option>Polos</option><option>Casacas</option><option>Vestidos</option><option>Otros</option>
+        </select>
+        <input id="f-max" type="number" min="1" placeholder="Precio máx. (S/)">
+        <button>Buscar</button>
+      </form>
+      <div id="catalogo" class="grid"></div>
+    </section>
+
+    <section id="acceso">
+      <h2>Soy comerciante</h2>
+      <div class="dos">
+        <form id="form-registro">
+          <h3>Registrarme</h3>
+          <input name="dni" placeholder="DNI (8 dígitos)" required>
+          <input name="nombre" placeholder="Nombre del negocio" required>
+          <input name="correo" type="email" placeholder="Correo" required>
+          <input name="password" type="password" placeholder="Contraseña (mín. 8)" required>
+          <button>Crear cuenta</button>
+        </form>
+        <form id="form-login">
+          <h3>Iniciar sesión</h3>
+          <input name="dni" placeholder="DNI" required>
+          <input name="password" type="password" placeholder="Contraseña" required>
+          <button>Ingresar</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="panel" hidden>
+      <h2>Mi panel</h2>
+      <div class="dos">
+        <form id="form-producto">
+          <h3>Publicar producto</h3>
+          <input name="nombre" placeholder="Nombre del producto" required>
+          <select name="categoria"><option>Jeans</option><option>Polos</option><option>Casacas</option><option>Vestidos</option><option>Otros</option></select>
+          <input name="precio" type="number" min="1" step="0.1" placeholder="Precio (S/)" required>
+          <input name="tallas" placeholder="Tallas (ej. S, M, L)">
+          <input name="whatsapp" placeholder="WhatsApp (9 dígitos)">
+          <button>Publicar</button>
+        </form>
+        <div>
+          <form id="form-venta">
+            <h3>Registrar venta</h3>
+            <input name="monto" type="number" min="0.1" step="0.1" placeholder="Monto (S/)" required>
+            <button>Registrar</button>
+          </form>
+          <div id="resumen" class="resumen"></div>
+        </div>
+      </div>
+      <button id="salir" class="secundario">Cerrar sesión</button>
+    </section>
+
+    <p id="mensaje" role="status"></p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
