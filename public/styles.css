@@ -1,0 +1,21 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f5f6fa; color: #1f2937; }
+header { background: #1f3864; color: #fff; padding: 20px; }
+header h1 { margin: 0; } header p { margin: 4px 0 0; opacity: .85; }
+#sesion { display: block; margin-top: 6px; font-size: 14px; }
+main { max-width: 960px; margin: 0 auto; padding: 16px; }
+section { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+h2 { margin-top: 0; color: #1f3864; }
+form { display: flex; flex-direction: column; gap: 8px; }
+.fila { flex-direction: row; flex-wrap: wrap; }
+.dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+input, select, button { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; }
+button { background: #c00000; color: #fff; border: none; cursor: pointer; }
+button.secundario { background: #64748b; margin-top: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+.card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+.card h4 { margin: 0 0 6px; } .precio { font-size: 20px; color: #c00000; font-weight: bold; }
+.card a { display: inline-block; margin-top: 8px; color: #15803d; font-weight: bold; }
+.resumen { margin-top: 12px; padding: 12px; border-radius: 8px; background: #eef2ff; }
+.alerta { background: #fee2e2; color: #991b1b; }
+#mensaje { font-weight: bold; }
